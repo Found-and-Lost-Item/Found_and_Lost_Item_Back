@@ -1,0 +1,21 @@
+# Node.js 관련 디렉토리 및 파일 제외
+node_modules/
+
+# 환경 변수 파일 제외
+.env
+
+# 로그 파일 제외
+*.log
+
+# MacOS 관련 시스템 파일 제외
+.DS_Store
+
+# 빌드 아티팩트 제외
+dist/
+build/
+
+# Visual Studio Code 관련 설정 파일 제외
+.vscode/
+
+# 업로드된 파일 제외 (예: uploads 디렉토리)
+uploads/
