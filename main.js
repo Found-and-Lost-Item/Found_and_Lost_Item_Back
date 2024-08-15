@@ -68,8 +68,7 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-const allowedOrigins = ['http://localhost:8081', 'your-other-allowed-domain.com'];
-
+const allowedOrigins = ['http://localhost:8081', 'http://192.168.0.116:3000'];
 app.use(cors({
   origin: function(origin, callback) {
     // allow requests with no origin
@@ -81,10 +80,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));
-
-
-const sessionStore = new MySQLStore({}, db); // MySQLStore 생성
+}));  const sessionStore = new MySQLStore({}, db); // MySQLStore 생성
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -101,10 +97,19 @@ app.use(session({
 const authRouter = require('./login/auth');
 const ensureAuthenticated = require('./login/authCheck');
 const registerRouter = require('./login/register');
+const profileRouter = require('./login/profile');
+const passwordRouter = require('./login/password');
+const findIdRouter = require('./login/findId');
+const findPasswordRouter = require('./login/findPassword');
 
 app.use('/auth', authRouter);
 app.use('/auth', registerRouter);
+app.use('/profile', profileRouter);
+app.use('/password', passwordRouter);
+app.use('/find', findIdRouter); // /find_id로 접근
+app.use('/find', findPasswordRouter); // /find_password로 접근
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
