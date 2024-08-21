@@ -31,7 +31,7 @@ router.post('/find_password', async (req, res) => {
 router.post('/change_password', async (req, res) => {
     const { user_id, phone_number, new_password } = req.body;
   
-    console.log("user id:", user_id, "phone number:", phone_number, "new password.");
+    console.log("user id:", user_id, "phone number:", phone_number, "new password:");
   
     try {
       const [user] = await db.promise().query(

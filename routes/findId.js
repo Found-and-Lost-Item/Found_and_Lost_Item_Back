@@ -1,32 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-// const db = require('../db.js');
-
-// // 아이디 찾기 API
-// router.post('/find_id', async (req, res) => {
-//   const { phone_number } = req.body;
-
-//   try {
-//     const [user] = await db.promise().query(
-//       'SELECT user_id FROM user WHERE user_phone_number = ?',
-//       [phone_number]
-//     );
-
-//     if (user.length === 0) {
-//       return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
-//     }
-
-//     res.json({ success: true, user_id: user[0].user_id });
-//   } catch (error) {
-//     console.error('Error during ID finding:', error);
-//     res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
-//   }
-// });
-
-// module.exports = router;
-
-
-
 const express = require('express');
 const router = express.Router();
 const db = require('../db.js');

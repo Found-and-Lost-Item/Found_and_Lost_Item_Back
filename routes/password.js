@@ -10,7 +10,7 @@ router.post('/reset_password', async (req, res) => {
 
   try {
     const [user] = await db.promise().query('SELECT user_password FROM user WHERE user_id = ?', [user_id]);
-
+A
     if (user.length === 0) {
       return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
     }
