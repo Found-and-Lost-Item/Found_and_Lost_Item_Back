@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 // 비밀번호 재설정 API
 router.post('/reset_password', async (req, res) => {
   const { user_id, current_password, new_password } = req.body;
+  console.log("password :", new_password);
 
   try {
     const [user] = await db.promise().query('SELECT user_password FROM user WHERE user_id = ?', [user_id]);

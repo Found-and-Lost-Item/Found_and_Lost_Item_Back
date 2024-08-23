@@ -21,6 +21,8 @@ router.post('/update_profile', upload.single('profile_image'), async (req, res) 
   const { user_id, user_name } = req.body;
   const user_profile_image = req.file ? req.file.filename : null;
 
+  console.log("user :", user_id, user_name, user_profile_image);
+
   try {
     await db.promise().query(
       'UPDATE user SET user_name = ?, user_profile_image = ? WHERE user_id = ?',
