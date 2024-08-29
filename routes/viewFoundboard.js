@@ -4,14 +4,16 @@ const db = require('../db');
 
 // 습득물 게시글 조회 API
 router.get('/viewFoundItems', (req, res) => {
-  const { category, order, search } = req.query; // req.query는 클라이언트가 보낸 URL의 쿼리 파라미터를 가져옴. 차례대로 카테고리, 정렬, 검색인데 맞춰야 함 
+  const { category, order, search } = req.query; // req.query는 클라이언트가 보낸 URL의 쿼리 파라미터를 가져옴. 차례대로 카테고리, 정렬, 검색
 
   // 쿼리문을 작성할 변수를 let으로 선언
   let viewFoundQ = `
-    SELECT foundboard.*, foundimage.found_image_url 
+    SELECT foundboard.*, foundimage.found_image_url, category.category_name
     FROM foundboard 
     LEFT JOIN foundimage 
-    ON foundboard.found_board_id = foundimage.found_board_id 
+    ON foundboard.found_board_id = foundimage.found_board_id
+    LEFT JOIN category 
+    ON foundboard.category_id = category.category_id
     WHERE true
   `; 
   // 밑에서 DB에서 더 불러올 수 있어서 쿼리문이 수정, 확장될 수 있어야 하므로 const 말고 let 사용 (let을 쓰면 변수 재할당 가능)
@@ -57,14 +59,17 @@ router.get('/viewFoundItem/:id', (req, res) => { // :id는 URL에서 동적으�
   const { id } = req.params; // req.params는 요청된 URL의 파라미터를 가져오며 id를 가져와서 변수로 할당
 
   const viewFoundDetailQ = `
-    SELECT foundboard.*, foundimage.found_image_url 
+    SELECT foundboard.*, foundimage.found_image_url, category.category_name
     FROM foundboard 
     LEFT JOIN foundimage 
     ON foundboard.found_board_id = foundimage.found_board_id 
+    LEFT JOIN category 
+    ON foundboard.category_id = category.category_id
     WHERE foundboard.found_board_id = ${db.escape(id)} 
   `;
   //foundboard 테이블에서 found_board_id가 요청된 id와 일치하는 행만 선택됨(where절)
   // 조인 절-> foundboard테이블과 foundimage 테이블을 연결함 left join은 foundboard에 해당하는 항목이 없더라도 결과를 반환함. foundboard와 foundimage 테이블을 found_board_id필드를 기준으로 연결함(on)
+  // category 테이블까지 조인해야 category테이블의 category_name을 프론트에서 쓸수있음
 
 
 
